@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ProAssist.AI</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 15px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #chat-container {
+      border: 1px solid #ccc;
+      background: #fff;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    #chat {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 80%;
+    }
+    .user-message {
+      background: #d1e7fd;
+      align-self: flex-end;
+      color: #0b3d91;
+    }
+    .bot-message {
+      background: #e2f0d9;
+      align-self: flex-start;
+      color: #2b5d00;
+    }
+    #user-input {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      flex-grow: 0;
+      width: calc(100% - 70px);
+      margin-right: 10px;
+    }
+    #send-btn {
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: none;
+      background-color: #0b3d91;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #send-btn:hover {
+      background-color: #062a5b;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to ProAssist.AI</h1>
+    <p>Your AI assistant for coding, Minecraft skins, mods, and servers!</p>
+  </header>
+
+  <main>
+    <div id="chat-container">
+      <div id="chat"></div>
+      <input type="text" id="user-input" placeholder="Ask me anything..." autocomplete="off" />
+      <button id="send-btn">Send</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 ProAssist.AI - Free Minecraft & Coding AI Assistant</p>
+  </footer>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    function appendMessage(text, className) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message ${className}`;
+      msgDiv.textContent = text;
+      chat.appendChild(msgDiv);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function botReply(userText) {
+      // For now, the bot just echoes the user message with a placeholder reply
+      const reply = `ProAssist.AI says: I heard you say "${userText}". This is just a demo reply!`;
+      appendMessage(reply, 'bot-message');
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const text = userInput.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user-message');
+      userInput.value = '';
+      botReply(text);
+    });
+
+    userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
